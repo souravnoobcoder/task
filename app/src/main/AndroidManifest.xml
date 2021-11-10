@@ -9,6 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Task">
+        <service
+            android:name=".service.TimerService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.AlarmService"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
