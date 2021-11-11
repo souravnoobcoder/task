@@ -13,7 +13,7 @@ class TaskApplication: Application() {
     private fun notificationCreator(){
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             val notificationChannel = NotificationChannel(channelID,
-            channelName,NotificationManager.IMPORTANCE_DEFAULT)
+            channelName,NotificationManager.IMPORTANCE_HIGH)
             notificationChannel.description="Timer is running"
             val notificationManager=getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(notificationChannel)
