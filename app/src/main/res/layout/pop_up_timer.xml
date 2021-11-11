@@ -2,20 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/pop_background"
     android:theme="@style/PopupStyle"
     android:orientation="vertical">
 
-    <TextView
-        android:textAlignment="center"
-        style="@style/active"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Your Time is Finished"/>
-    <Button
-        android:id="@+id/ok"
-        android:layout_marginTop="30dp"
+    <LinearLayout
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ok"
-        android:layout_gravity="center"/>
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_alarm_" />
+
+        <TextView
+            android:layout_marginStart="30dp"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Time or Alarm is Finished"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:background="@color/teal_200"
+        android:text="Ok" />
 </LinearLayout>

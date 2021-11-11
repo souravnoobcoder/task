@@ -2,13 +2,16 @@ package com.example.task.service
 
 import android.app.PendingIntent
 import android.app.Service
+import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.CountDownTimer
 import android.os.IBinder
-import android.view.View
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
+import com.example.task.R
 import com.example.task.R.drawable
 import com.example.task.TaskApplication
 import com.example.task.activity.MainActivity
@@ -16,8 +19,6 @@ import com.example.task.activity.Popup
 
 
 class TimerService : Service() {
-    private var windowManager: WindowManager? = null
-    private var popupView: View? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val time: Long? = (intent?.getLongExtra("a", 0))?.times(1000)
@@ -25,26 +26,16 @@ class TimerService : Service() {
         val pendingIntent = PendingIntent.getActivity(
             this, 0, notificationIntent, 0
         )
-        val timerFinish = NotificationCompat.Builder(this, TaskApplication.channelID)
-            .setContentTitle("Timer finished")
-            .setContentText("Your set timer finished")
-            .setSmallIcon(drawable.ic_launcher_foreground)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-            .build()
         val countDownTimer = object : CountDownTimer(time!!, 1000) {
             override fun onTick(millisUntilFinished: Long) {
 
             }
-
-
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onFinish() {
-                val inten=Intent(this@TimerService, Popup::class.java)
-                inten.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(inten)
-//                with(NotificationManagerCompat.from(applicationContext)) {
-//                    notify(2, timerFinish)
-//                }
+//                val timerIntent = Intent(this@TimerService, Popup::class.java)
+//                timerIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                startActivity(timerIntent)
+                showAlertDialog()
                 stopSelf()
             }
         }
@@ -63,5 +54,18 @@ class TimerService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun showAlertDialog() {
+        val dialog = AlertDialog.Builder(this,R.style.Theme)
+            .setTitle("hello")
+            .setMessage("kdfkdfkd")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.cancel()
+            }.setIcon(drawable.ic_alarm_)
+            .create()
+        dialog.window?.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
+            dialog.show()
     }
 }

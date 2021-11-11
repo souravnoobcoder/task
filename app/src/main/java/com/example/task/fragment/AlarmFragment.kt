@@ -1,7 +1,5 @@
 package com.example.task.fragment
 
-import android.app.AlarmManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,9 +15,7 @@ import java.util.*
 
 class AlarmFragment : Fragment() {
 
-
-    private var alarmManager: AlarmManager? = null
-
+    private var time = ""
     private var timePicker: MaterialTimePicker? = null
     private var calender: Calendar? = null
     private lateinit var binding: FragmentAlarmBinding
@@ -34,16 +30,15 @@ class AlarmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         binding.apply {
             createAlarm.setOnClickListener {
                 createTimerPicker()
                 timePicker?.addOnPositiveButtonClickListener {
                     if (timePicker?.hour!! < 12)
-                        timeSet.text = " ${timePicker?.hour} : ${timePicker?.minute} AM"
+                        time = " ${timePicker?.hour} : ${timePicker?.minute} AM"
                     else
-                        timeSet.text = " ${timePicker?.hour!! - 12} : ${timePicker?.minute} PM"
-
+                        time = " ${timePicker?.hour!! - 12} : ${timePicker?.minute} PM"
+                    timeSet.text = time
                     calender = Calendar.getInstance()
                     calender?.apply {
                         set(Calendar.HOUR_OF_DAY, timePicker?.hour!!)
